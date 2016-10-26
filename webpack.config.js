@@ -6,11 +6,11 @@ var path = require('path'),
 
 module.exports = {
     entry: {
-        "angularjs-app": './src/app.js'
+        "angularjs-app": './src/main/app.js'
     },
 
     output: {
-        path: path.join(__dirname, '../back-end/dist/'),
+        path: path.join(__dirname, 'dist'),
         filename: '[name].bundle.js'
     },
 
@@ -42,7 +42,7 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: './src/main/index.html',
             inject: 'body'
         }),
 
