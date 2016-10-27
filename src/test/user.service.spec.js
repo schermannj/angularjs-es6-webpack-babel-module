@@ -1,35 +1,49 @@
-import 'angular-mocks';
-import 'sinon';
+import {ROUTES} from '../main/configs/constants';
+import {api} from '../main/configs/common.handlers';
 
-// import chai from 'chai';
-//
-// const assert = chai.assert;
+describe('UserService', function userServiceTestCase() {
 
-describe('UserService', () => {
-    let userService;
-
-    beforeEach((done) => {
-        module('app');
-
-        inject(function (_userService_) {
-            userService = _userService_;
-
-            done();
-        });
-    });
+    beforeEach(userServiceBeforeEach.bind(this));
+    afterEach(userServiceAfterEach.bind(this));
 
     describe('#getUser()', () => {
 
-        it('it should return authToken', (done) => {
-
-            userService
-                .login({username: 'test', password: 'test'})
-                .then((res) => {
-                    console.log(res);
-                    done();
-                });
-
-        });
+        it('it should return authToken', itShouldReturnAuthToken.bind(this));
 
     });
 });
+
+function userServiceBeforeEach(done) {
+    angular.mock.module('app');
+
+    inject((_userService_, _$httpBackend_) => {
+        this.userService = _userService_;
+        this.$httpBackend = _$httpBackend_;
+
+        done();
+    });
+}
+
+function userServiceAfterEach() {
+    this.$httpBackend.verifyNoOutstandingExpectation();
+    this.$httpBackend.verifyNoOutstandingRequest();
+}
+
+function itShouldReturnAuthToken(done) {
+    const userCredentials = {username: 'test', password: 'test'};
+    const token = 'q3e5a4sd6qwe3e5qw163q24we3a5';
+
+    this.$httpBackend.when('GET', api(ROUTES.getUserByToken)).respond({username: 'test', isAdmin: false});
+    this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond({authToken: token});
+
+    this.userService
+        .login(userCredentials)
+        .then((res) => {
+
+            assert.equal(res.data.authToken, token);
+
+            done();
+        });
+
+    this.$httpBackend.flush();
+}

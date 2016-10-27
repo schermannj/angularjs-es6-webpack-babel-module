@@ -10,7 +10,7 @@ module.exports = function (config) {
         // plugins: [
         //     'karma-mocha',
         //     'karma-chai',
-        //     'karma-chrome-launcher'
+        //     'karma-phantomjs-launcher'
         // ],
 
         // frameworks to use
@@ -21,12 +21,16 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             'dist/angularjs-app.bundle.js',
-            'src/test/index.spec.js'
+            'dist/angularjs-app.spec.bundle.js',
+            // 'dist/*.js'
         ],
 
 
         // list of files to exclude
-        exclude: [],
+        exclude: [
+            'dist/assets/*',
+            'dist/assets/*.js.map',
+        ],
 
 
         // preprocess matching files before serving them to the browser
@@ -54,12 +58,13 @@ module.exports = function (config) {
 
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: false,
+        autoWatch: true,
 
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['Chrome'],
+        // browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
 
 
         // Continuous Integration mode

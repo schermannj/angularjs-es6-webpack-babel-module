@@ -6,7 +6,8 @@ var path = require('path'),
 
 module.exports = {
     entry: {
-        "angularjs-app": './src/main/app.js'
+        'angularjs-app': './src/main/app.js',
+        'angularjs-app.spec': './src/test/index.spec.js'
     },
 
     output: {
@@ -14,20 +15,20 @@ module.exports = {
         filename: '[name].bundle.js'
     },
 
-    devtool: "eval",
+    devtool: 'eval',
 
     module: {
         loaders: [
             {
                 test: /\.css$/,
-                loader: "style!css"
+                loader: 'style!css'
             }, {
                 test: /\.scss$/,
-                loader: "style!css!autoprefixer!sass"
+                loader: 'style!css!autoprefixer!sass'
             }, {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
-                loader: "ng-annotate?add=true!babel?presets[]=es2015"
+                loader: 'ng-annotate?add=true!babel?presets[]=es2015'
             },
             {
                 test: /\.html$/,
@@ -43,17 +44,14 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/main/index.html',
+            chunks: ['angularjs-app'],
             inject: 'body'
         }),
 
         new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-            "window.jQuery": "jquery"
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
         })
-    ],
-
-    node: {
-        fs: "empty"
-    }
+    ]
 };

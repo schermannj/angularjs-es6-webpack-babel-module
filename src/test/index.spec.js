@@ -1,7 +1,4 @@
-require('babel-register')({
-    sourceMaps: false
-});
+import 'angular-mocks';
+// import 'sinon';
 
-module.exports = [
-    require('./user.service.spec.js')
-];
+import './user.service.spec.js';
