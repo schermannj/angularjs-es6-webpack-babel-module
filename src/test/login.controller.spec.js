@@ -60,5 +60,4 @@ function TestCaseFactory() {
 
         this.$httpBackend.flush();
     }
-
 }
