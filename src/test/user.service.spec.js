@@ -47,13 +47,12 @@ function TestCaseFactory() {
     }
 
     function itShouldReturnAuthToken(done) {
-        const userCredentials = {username: 'test', password: 'test'};
         const token = 'q3e5a4sd6qwe3e5qw163q24we3a5';
 
-        this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond({authToken: token});
+        this.$httpBackend.when('POST', api(ROUTES.login)).respond({authToken: token});
 
         this.userService
-            .login(userCredentials)
+            .login()
             .then((res) => {
 
                 assert.equal(res.data.authToken, token);
@@ -65,12 +64,10 @@ function TestCaseFactory() {
     }
 
     function itShouldFailWhenPasswordIsWrong(done) {
-        const userCredentials = {username: 'test', password: 'wrongPassword'};
-
-        this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond(403);
+        this.$httpBackend.when('POST', api(ROUTES.login)).respond(403);
 
         this.userService
-            .login(userCredentials)
+            .login()
             .catch((res) => {
                 assert.equal(res.status, 403);
                 done();
@@ -80,12 +77,10 @@ function TestCaseFactory() {
     }
 
     function itShouldFailWhenUsernameIsWrong(done) {
-        const userCredentials = {username: 'username', password: 'test'};
-
-        this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond(403);
+        this.$httpBackend.when('POST', api(ROUTES.login)).respond(403);
 
         this.userService
-            .login(userCredentials)
+            .login()
             .catch((res) => {
                 assert.equal(res.status, 403);
                 done();
