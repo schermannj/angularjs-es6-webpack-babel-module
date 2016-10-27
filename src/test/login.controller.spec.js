@@ -46,7 +46,7 @@ function TestCaseFactory() {
         this.ctrl.password = 'qwerty';
 
         this.$httpBackend
-            .when('POST', '/api/login')
+            .when('POST', api(ROUTES.login))
             .respond((method, url, data) => {
                 const body = JSON.parse(data);
 
