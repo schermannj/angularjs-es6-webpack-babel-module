@@ -1,82 +1,96 @@
 import {ROUTES} from '../main/configs/constants';
 import {api} from '../main/configs/common.handlers';
 
-describe('UserService', function userServiceTestCase() {
 
-    beforeEach(userServiceBeforeEach.bind(this));
-    afterEach(userServiceAfterEach.bind(this));
+describe('UserService', function userServiceTestCaseRunner() {
+    const tc = TestCaseFactory();
+
+    beforeEach(tc.beforeEach);
+    afterEach(tc.afterEach);
 
     describe('#getUser()', () => {
 
-        it('it should return authToken', itShouldReturnAuthToken.bind(this));
-        it('it should fail when password is wrong', itShouldFailWhenPasswordIsWrong.bind(this));
-        it('it should fail when username is wrong', itShouldFailWhenUsernameIsWrong.bind(this));
+        it('it should return authToken', tc.itShouldReturnAuthToken);
+        it('it should fail when password is wrong', tc.itShouldFailWhenPasswordIsWrong);
+        it('it should fail when username is wrong', tc.itShouldFailWhenUsernameIsWrong);
 
     });
 });
 
-function userServiceBeforeEach(done) {
-    angular.mock.module('app');
 
-    inject((_userService_, _$httpBackend_) => {
-        this.userService = _userService_;
-        this.$httpBackend = _$httpBackend_;
+function TestCaseFactory() {
 
-        this.$httpBackend.when('GET', api(ROUTES.getUserByToken)).respond(200);
+    return {
+        beforeEach,
+        afterEach,
+        itShouldReturnAuthToken,
+        itShouldFailWhenPasswordIsWrong,
+        itShouldFailWhenUsernameIsWrong
+    };
 
-        done();
-    });
-}
+    function beforeEach(done) {
+        angular.mock.module('app');
 
-function userServiceAfterEach() {
-    this.$httpBackend.verifyNoOutstandingExpectation();
-    this.$httpBackend.verifyNoOutstandingRequest();
-}
+        inject((_userService_, _$httpBackend_) => {
+            this.userService = _userService_;
+            this.$httpBackend = _$httpBackend_;
 
-function itShouldReturnAuthToken(done) {
-    const userCredentials = {username: 'test', password: 'test'};
-    const token = 'q3e5a4sd6qwe3e5qw163q24we3a5';
-
-    this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond({authToken: token});
-
-    this.userService
-        .login(userCredentials)
-        .then((res) => {
-
-            assert.equal(res.data.authToken, token);
+            this.$httpBackend.when('GET', api(ROUTES.getUserByToken)).respond(200);
 
             done();
         });
+    }
 
-    this.$httpBackend.flush();
-}
+    function afterEach() {
+        this.$httpBackend.verifyNoOutstandingExpectation();
+        this.$httpBackend.verifyNoOutstandingRequest();
+    }
 
-function itShouldFailWhenPasswordIsWrong(done) {
-    const userCredentials = {username: 'test', password: 'wrongPassword'};
+    function itShouldReturnAuthToken(done) {
+        const userCredentials = {username: 'test', password: 'test'};
+        const token = 'q3e5a4sd6qwe3e5qw163q24we3a5';
 
-    this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond(403);
+        this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond({authToken: token});
 
-    this.userService
-        .login(userCredentials)
-        .catch((res) => {
-            assert.equal(res.status, 403);
-            done();
-        });
+        this.userService
+            .login(userCredentials)
+            .then((res) => {
 
-    this.$httpBackend.flush();
-}
+                assert.equal(res.data.authToken, token);
 
-function itShouldFailWhenUsernameIsWrong(done) {
-    const userCredentials = {username: 'username', password: 'test'};
+                done();
+            });
 
-    this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond(403);
+        this.$httpBackend.flush();
+    }
 
-    this.userService
-        .login(userCredentials)
-        .catch((res) => {
-            assert.equal(res.status, 403);
-            done();
-        });
+    function itShouldFailWhenPasswordIsWrong(done) {
+        const userCredentials = {username: 'test', password: 'wrongPassword'};
 
-    this.$httpBackend.flush();
+        this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond(403);
+
+        this.userService
+            .login(userCredentials)
+            .catch((res) => {
+                assert.equal(res.status, 403);
+                done();
+            });
+
+        this.$httpBackend.flush();
+    }
+
+    function itShouldFailWhenUsernameIsWrong(done) {
+        const userCredentials = {username: 'username', password: 'test'};
+
+        this.$httpBackend.when('POST', api(ROUTES.login), userCredentials).respond(403);
+
+        this.userService
+            .login(userCredentials)
+            .catch((res) => {
+                assert.equal(res.status, 403);
+                done();
+            });
+
+        this.$httpBackend.flush();
+    }
 }
