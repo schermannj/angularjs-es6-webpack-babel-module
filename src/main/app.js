@@ -38,6 +38,9 @@ import homePageComponent from './components/home-page/home-page.component';
 import {onStateChangeError} from './configs/state-events.handler';
 import registerAngularBusy from './components/angular-busy/angular-busy.run';
 
+// filters
+import upperCaseFilterFunction from './common/filters/upper-case.filter';
+
 const moduleName = angular
     .module('app', [
         uirouter,
@@ -57,6 +60,7 @@ const moduleName = angular
     .controller('HomePageController', HomePageController)
     .service('userService', userService)
     .factory('httpRequestInterceptor', httpRequestInterceptor)
+    .filter('upperCase', upperCaseFilterFunction)
     .run(onStateChangeError)
     .run(registerAngularBusy)
     .name;
