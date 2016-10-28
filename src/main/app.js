@@ -33,6 +33,7 @@ import httpRequestInterceptor from './services/http-request.interceptor';
 
 // components and directives
 import homePageComponent from './components/home-page/home-page.component';
+import helloDirective from './components/hello/hello.directive';
 
 // run functions
 import {onStateChangeError} from './configs/state-events.handler';
@@ -50,7 +51,8 @@ const moduleName = angular
         uibootstrap,
         smartTable,
         'cgBusy',
-        homePageComponent
+        homePageComponent,
+        helloDirective
     ])
     .config(routeConfig)
     .config(langConfig)
