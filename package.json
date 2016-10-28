@@ -7,9 +7,10 @@
   "scripts": {
     "start": "npm run server",
     "prod": "webpack --display-error-details --optimize-minimize",
+    "build": "webpack --display-error-details",
     "watch": "webpack --display-error-details --watch -d",
     "server": "webpack-dev-server --history-api-fallback --inline --progress --port 8080 --display-reasons --colors -p --display-error-details",
-    "test": "karma start"
+    "test": "npm run build && karma start"
   },
   "dependencies": {
     "angular": "^1.5.8",
