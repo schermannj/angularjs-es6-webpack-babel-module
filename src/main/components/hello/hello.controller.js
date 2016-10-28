@@ -6,7 +6,6 @@ export function HelloDirectiveCtrl() {
     };
 
     function $onInit() {
-        console.log(this.user)
     }
 }
 
