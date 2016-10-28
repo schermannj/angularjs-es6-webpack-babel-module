@@ -1,6 +1,6 @@
 import md5 from 'md5';
-import {ROUTES} from '../main/configs/constants';
-import {api} from '../main/configs/common.handlers';
+import {ROUTES} from '../../configs/constants';
+import {api} from '../../configs/common.handlers';
 
 describe('LoginController', function loginControllerTestCaseRunner() {
     const tc = TestCaseFactory();

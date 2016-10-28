@@ -1,5 +1,5 @@
 import 'angular-mocks';
 // import 'sinon';
 
-import './user.service.spec';
-import './login.controller.spec';
+import '../main/services/user.service.spec';
+import '../main/controllers/login/login.controller.spec';

@@ -1,4 +1,6 @@
-describe('ModuleName', function moduleNameTestCaseRunner() {
+/**
+
+ describe('ModuleName', function moduleNameTestCaseRunner() {
     const tc = TestCaseFactory();
 
     beforeEach(tc.beforeEach);
@@ -12,7 +14,7 @@ describe('ModuleName', function moduleNameTestCaseRunner() {
 });
 
 
-function TestCaseFactory() {
+ function TestCaseFactory() {
 
     return {
         beforeEach,
@@ -27,3 +29,5 @@ function TestCaseFactory() {
 
     }
 }
+
+ * */
