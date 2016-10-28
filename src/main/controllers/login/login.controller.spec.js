@@ -35,7 +35,7 @@ function TestCaseFactory() {
             this.$httpBackend.when('GET', api(ROUTES.getUserByToken)).respond(200);
 
             done();
-        })
+        });
     }
 
     function afterEach() {
