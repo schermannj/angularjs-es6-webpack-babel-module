@@ -1,3 +1,7 @@
+/**
+ * @description https://www.airpair.com/angularjs/posts/testing-angular-with-karma
+ */
+
 describe('HelloDirective', function helloDirectiveTestCaseRunner() {
     const tc = TestCaseFactory();
 
